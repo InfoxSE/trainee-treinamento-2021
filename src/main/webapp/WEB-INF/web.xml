@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<filter>
+		<filter-name>Redirect Filter</filter-name>
+		<filter-class>br.com.infox.treinamento.trainee.filters.RedirectLandingPageFilter</filter-class>
+		<init-param>
+			<param-name>landingPage</param-name>
+			<param-value>index.jsf</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Redirect Filter</filter-name>
+		<url-pattern>/</url-pattern>
+	</filter-mapping>
+
+</web-app>
