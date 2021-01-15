@@ -8,13 +8,11 @@
 	<ui:define name="content">
 		<h:form id="registrarMembro">
 
-			x #{label} x
 			<ui:include src="/WEB-INF/components/inputText.xhtml">
 				<ui:param name="id" value="name" />
 				<ui:param name="label" value="Nome: " />
 				<ui:param name="value" value="#{pessoaFisicaControllerJSF.novaPessoa.name}" />
 			</ui:include>
-			x #{label} x
 			<ifx:inputText id="email" label="Email: "
 				value="#{pessoaFisicaControllerJSF.novaPessoa.email}" />
 
@@ -23,20 +21,13 @@
 				converter="pessoafisica.CpfConverter"
 				value="#{pessoaFisicaControllerJSF.novaPessoa.cpf}" />
 
-			<div>
-				<h:outputLabel for="phoneNumber" value="Telefone: " />
-				<h:inputText id="phoneNumber"
-					value="#{pessoaFisicaControllerJSF.novaPessoa.phoneNumber}" />
-				<h:messages for="phoneNumber" errorClass="invalid" />
-			</div>
-			<div>
-				<h:outputLabel for="birthDate" value="Data de nascimento " />
-				<h:inputText id="birthDate"
+			<ifx:inputText id="phoneNumber" label="Telefone: "
+				value="#{pessoaFisicaControllerJSF.novaPessoa.phoneNumber}" />
+
+			<ifx:inputText id="birthDate" label="Data de nascimento "
 					value="#{pessoaFisicaControllerJSF.novaPessoa.birthDate}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:inputText>
-				<h:messages for="birthDate" errorClass="invalid" />
-			</div>
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</ifx:inputText>
 
 			<h:commandButton id="registrar" value="Registrar"
 				action="#{pessoaFisicaControllerJSF.registrar}" />

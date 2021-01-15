@@ -98,6 +98,11 @@
 			<artifactId>omnifaces</artifactId>
 			<version>1.14.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>8.0</version>
+		</dependency>
         <!-- First declare the APIs we depend on and need for compilation. All
             of them are provided by JBoss EAP 6 -->
 
