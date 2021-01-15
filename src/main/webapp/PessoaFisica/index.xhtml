@@ -3,29 +3,26 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ifx="http://infox.com.br/trainee"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form id="registrarMembro">
-			<div>
-				<h:outputLabel for="name" value="Nome: " />
-				<h:inputText id="name"
-					value="#{pessoaFisicaControllerJSF.novaPessoa.name}" />
-				<h:messages for="name" errorClass="invalid" />
-			</div>
-			<div>
-				<h:outputLabel for="email" value="Email: " />
-				<h:inputText id="email"
-					value="#{pessoaFisicaControllerJSF.novaPessoa.email}" />
-				<h:messages for="email" errorClass="invalid" />
-			</div>
-			<div>
-				<h:outputLabel for="cpf" value="CPF: " />
-				<h:inputText id="cpf"
-					validator="pessoafisica.CpfValidator"
-					converter="pessoafisica.CpfConverter"
-					value="#{pessoaFisicaControllerJSF.novaPessoa.cpf}" />
-				<h:messages for="cpf" errorClass="invalid" />
-			</div>
+
+			x #{label} x
+			<ui:include src="/WEB-INF/components/inputText.xhtml">
+				<ui:param name="id" value="name" />
+				<ui:param name="label" value="Nome: " />
+				<ui:param name="value" value="#{pessoaFisicaControllerJSF.novaPessoa.name}" />
+			</ui:include>
+			x #{label} x
+			<ifx:inputText id="email" label="Email: "
+				value="#{pessoaFisicaControllerJSF.novaPessoa.email}" />
+
+			<ifx:inputText id="cpf" label="CPF: "
+				validator="pessoafisica.CpfValidator"
+				converter="pessoafisica.CpfConverter"
+				value="#{pessoaFisicaControllerJSF.novaPessoa.cpf}" />
+
 			<div>
 				<h:outputLabel for="phoneNumber" value="Telefone: " />
 				<h:inputText id="phoneNumber"

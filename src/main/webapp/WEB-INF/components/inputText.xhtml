@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+	<div>
+		<h:outputLabel for="#{id}" value="#{label}" />
+		<h:inputText id="#{id}" value="#{value}">
+			<c:if test="#{converter != null}">
+				<f:converter converterId="#{converter}" />
+			</c:if>
+			<c:if test="#{validator ne null}">
+				<f:validator validatorId="#{validator}" />
+			</c:if>
+		</h:inputText>
+		<h:messages for="#{id}" errorClass="invalid" />
+	</div>
+
+
+</ui:composition>
