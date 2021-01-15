@@ -17,7 +17,7 @@ import org.omnifaces.filter.HttpFilter;
 @WebFilter("*")
 public class RequestLoggingFilter extends HttpFilter {
 
-	private static final Logger LOG = Logger.getLogger("br.com.infox.treinamento.trainee.filters");
+	private static final Logger LOG = Logger.getLogger("trainee.filters");
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
