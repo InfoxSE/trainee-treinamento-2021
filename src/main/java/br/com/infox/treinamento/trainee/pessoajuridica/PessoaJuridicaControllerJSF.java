@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -20,7 +21,7 @@ public class PessoaJuridicaControllerJSF implements Serializable{
 	private static final Logger LOG = Logger.getLogger("trainee.member");
 
 	private PessoaJuridica novaPessoaJuridica;
-	private List<PessoaJuridica> lista_pessoajuridica;
+	private static List<PessoaJuridica> lista_pessoajuridica;
 	
 	@PostConstruct
 	public void init() {
@@ -28,12 +29,17 @@ public class PessoaJuridicaControllerJSF implements Serializable{
 		this.novaPessoaJuridica = new PessoaJuridica();
 	}
 	
+	@PreDestroy
+	public void destroy() {
+		LOG.info("PreDestroy PessoaJuridicaControllerJSF");
+	}
+	
 	public void registrar() {
 		if (lista_pessoajuridica == null) {
 			this.lista_pessoajuridica = new ArrayList<>(0);
 		}
 		getLista_pessoajuridica().add(getNovaPessoaJuridica());
-		this.novaPessoaJuridica = null;
+		this.novaPessoaJuridica = new PessoaJuridica();
 		LOG.info("PESSOAS JURÍDICAS DA LISTA");
 		for (PessoaJuridica pessoaJuridica : lista_pessoajuridica) {
 			LOG.info("NOME => " + pessoaJuridica.getNome());

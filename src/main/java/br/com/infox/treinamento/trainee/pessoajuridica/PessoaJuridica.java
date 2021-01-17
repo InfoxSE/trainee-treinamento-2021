@@ -16,7 +16,7 @@ public class PessoaJuridica {
     private String nome;
     
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 40)
     @Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
     private String razao_social;
 
