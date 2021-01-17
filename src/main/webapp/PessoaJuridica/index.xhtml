@@ -21,6 +21,7 @@
 					<h:outputText value="CNPJ: " for="cnpj" />
 					<h:inputText
 						value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.cnpj}"
+						converter="pessoajuridica.CnpjConverter"
 						validator="pessoajuridica.CnpjValidator" />
 				</h:panelGrid>
 
@@ -42,7 +43,8 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">CNPJ</f:facet>
-				<h:outputText value="#{pJuridica.cnpj}" />
+				<h:outputText value="#{pJuridica.cnpj}" 
+				converter="pessoajuridica.CnpjConverter"/>
 			</h:column>
 		</h:dataTable>
 
