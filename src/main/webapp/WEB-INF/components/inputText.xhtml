@@ -7,7 +7,8 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<div>
-		<p:inputText id="#{id}" label="#{label}" value="#{value}">
+		<p:outputLabel for="#{id}" value="#{label}" />
+		<p:inputText id="#{id}" value="#{value}" placeholder="#{label}">
 			<c:if test="#{converter != null}">
 				<f:converter converterId="#{converter}" />
 			</c:if>
