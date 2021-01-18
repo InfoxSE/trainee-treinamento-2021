@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ifx="http://infox.com.br/trainee"
+	template="/WEB-INF/templates/default.xhtml"
+	xmlns:p="http://primefaces.org/ui">
+	<ui:define name="content">
+
+		<h:form id="cadastraConcurso" acceptcharset="ISO-8859-1">
+			<p:fieldset legend="Cadastro de Concurso Licitatório">
+				<h:messages id="messages" />
+				<h:panelGrid columns="2">
+					<h:outputText value="Nome: " for="nome" />
+					<h:inputText value="#{concursoControllerJSF.novoConcurso.nome}" />
+
+					<h:outputText value="Descrição: " for="descricao" />
+					<p:inputTextarea rows="5" cols="30" maxlength="200"
+						counterTemplate="{0} characters remaining." autoResize="false"
+						value="#{concursoControllerJSF.novoConcurso.descricao}" />
+
+					<h:outputText value="Data de Disponibilização: "
+						for="data_disponibilizacao" />
+					<p:calendar id="dataDisponibilizacao"
+						value="#{concursoControllerJSF.novoConcurso.dataDisponibilizacao.time}"
+						pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" mask="true" />
+
+					<h:outputText value="Data Limite: " for="data_limite" />
+					<p:calendar id="dataLimite"
+						value="#{concursoControllerJSF.novoConcurso.dataLimite.time}"
+						pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" mask="true" />
+					
+
+					<h:outputText value="Quantidade: " for="quantidade" />
+					<h:inputText
+						value="#{concursoControllerJSF.novoConcurso.quantidade}" />
+				</h:panelGrid>
+
+				<h:commandButton id="registrar" value="Registrar"
+					action="#{concursoControllerJSF.registrar}" />
+			</p:fieldset>
+		</h:form>
+
+		<h:dataTable styleClass="simpletablestyle" var="concurso"
+			value="#{concursoControllerJSF.concursos}">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				<h:outputText value="#{concurso.nome}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
+				<h:outputText value="#{concurso.descricao}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data de Disponibilização</f:facet>
+				<h:outputText value="#{concurso.dataDisponibilizacao.time}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Data Limite</f:facet>
+				<h:outputText value="#{concurso.dataLimite.time}">
+					<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantidade</f:facet>
+				<h:outputText value="#{concurso.quantidade}" />
+			</h:column>
+		</h:dataTable>
+
+
+	</ui:define>
+</ui:composition>
