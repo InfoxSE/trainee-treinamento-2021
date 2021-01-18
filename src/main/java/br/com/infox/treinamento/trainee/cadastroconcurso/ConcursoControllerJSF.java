@@ -41,6 +41,7 @@ public class ConcursoControllerJSF implements Serializable{
 		//Validando data limite igual ou inferior a disponibilizacao
 		int dataComparada = validarDatas();
 		if (dataComparada <= 0) {
+			LOG.info("ENTRANDO NA CONDIÇÃO DE ERRO NA DATA LIMITE DO CONCURSO");
 			FacesContext.getCurrentInstance().addMessage("data",
 					new FacesMessage("A data limite não pode ser IGUAL ou ANTERIOR a data de disponibilização"));
 			return;
