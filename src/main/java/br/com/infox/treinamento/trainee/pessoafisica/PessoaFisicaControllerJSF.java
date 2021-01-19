@@ -1,12 +1,12 @@
 package br.com.infox.treinamento.trainee.pessoafisica;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -18,6 +18,9 @@ public class PessoaFisicaControllerJSF implements Serializable {
 
 	private static final Logger LOG = Logger.getLogger("trainee.member");
 
+	@EJB
+	private PessoaFisicaService pessoaFisicaService;
+
 	private PessoaFisica novaPessoa;
 
 	private List<PessoaFisica> pessoas;
@@ -25,7 +28,8 @@ public class PessoaFisicaControllerJSF implements Serializable {
 	@PostConstruct
 	public void init() {
 		LOG.info("PostConstruct PessoaFisicaControllerJSF");
-		this.novaPessoa = new PessoaFisica();
+		novoCadastro();
+		pessoas = pessoaFisicaService.recuperarPessoas();
 	}
 	@PreDestroy
 	public void destroy() {
@@ -33,18 +37,12 @@ public class PessoaFisicaControllerJSF implements Serializable {
 	}
 
 	public void registrar() {
-		if (pessoas == null) {
-			this.pessoas = new ArrayList<>(0);
-		}
-		getPessoas().add(getNovaPessoa());
-		this.novaPessoa = null;
-		LOG.info("PESSOAS DA LISTA");
-		for (PessoaFisica pessoaFisica : pessoas) {
-			LOG.info("NOME => " + pessoaFisica.getName());
-			LOG.info("CPF => " + pessoaFisica.getCpf());
-			LOG.info("EMAIL => " + pessoaFisica.getEmail());
-			LOG.info("TELEFONE => " + pessoaFisica.getPhoneNumber());
-		}
+		pessoaFisicaService.registrar(getNovaPessoa());
+		pessoas = pessoaFisicaService.recuperarPessoas();
+		novoCadastro();
+	}
+	private void novoCadastro() {
+		this.novaPessoa = new PessoaFisica();
 	}
 
 	public PessoaFisica getNovaPessoa() {
