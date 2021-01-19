@@ -9,6 +9,8 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 @ManagedBean
 @ViewScoped
@@ -29,7 +31,7 @@ public class PessoaFisicaControllerJSF implements Serializable {
 	public void init() {
 		LOG.info("PostConstruct PessoaFisicaControllerJSF");
 		novoCadastro();
-		pessoas = pessoaFisicaService.recuperarPessoas();
+		pessoas = getPessoaFisicaService().recuperarPessoas();
 	}
 	@PreDestroy
 	public void destroy() {
@@ -41,6 +43,17 @@ public class PessoaFisicaControllerJSF implements Serializable {
 		pessoas = pessoaFisicaService.recuperarPessoas();
 		novoCadastro();
 	}
+
+	private PessoaFisicaService getPessoaFisicaService() {
+		try {
+			InitialContext initialContext = new InitialContext();
+			PessoaFisicaService lookup = (PessoaFisicaService) initialContext.lookup("java:module/PessoaFisicaStatelessEJB");
+			return lookup;
+		} catch (NamingException e) {
+			throw new IllegalStateException(e);
+		}
+	}
+
 	private void novoCadastro() {
 		this.novaPessoa = new PessoaFisica();
 	}
