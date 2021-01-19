@@ -1,5 +1,7 @@
 package br.com.infox.treinamento.trainee.pessoafisica;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -7,8 +9,12 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.interceptor.Interceptors;
+
+import br.com.infox.treinamento.trainee.interceptors.MethodAccessLogInterceptor;
 
 @Stateless
+@Interceptors(MethodAccessLogInterceptor.class)
 public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 
 	private static final Logger LOG = Logger.getLogger("trainee.slsb");
@@ -20,6 +26,12 @@ public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 	@PostConstruct
 	public void init() {
 		LOG.info("PostConstruct "+getClass().getSimpleName());
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	@PreDestroy
 	public void destroy() {
