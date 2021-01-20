@@ -7,6 +7,11 @@
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
 		<h:form id="alternarConfiguracaoAdapter">
+			<div>
+				<h:outputFormat value="Próximo número da sequência de Fibonacci: {0}">
+					<f:param value="#{pessoaFisicaController.number}" />
+				</h:outputFormat>
+			</div>
 			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
 				action="#{pessoaFisicaController.alternarAdapter}" />
 		</h:form>
