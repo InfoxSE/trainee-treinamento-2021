@@ -8,8 +8,10 @@
 	<ui:define name="content">
 		<h:form id="alternarConfiguracaoAdapter">
 			<div>
-				<h:outputFormat value="Próximo número da sequência de Fibonacci: {0}">
-					<f:param value="#{pessoaFisicaController.number}" />
+				<h:outputFormat value="Próximo número da sequência de Fibonacci (Soma de {0} e {1}): {2}">
+					<f:param value="#{fiboAnterior}" />
+					<f:param value="#{fiboAtual}" />
+					<f:param value="#{proximoNumeroFibonacci}" />
 				</h:outputFormat>
 			</div>
 			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"

@@ -27,10 +27,6 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	@Inject
 	private PessoaFisicaServiceAdapterRouter adapterRouter;
 
-	@Inject
-	@Fibonacci
-	private int number;
-
 	private PessoaFisica novaPessoa;
 
 	private List<PessoaFisica> pessoas;
@@ -67,10 +63,6 @@ public class PessoaFisicaControllerCDI implements Serializable {
 
 	public List<PessoaFisica> getPessoas() {
 		return pessoas;
-	}
-
-	public int getNumber() {
-		return number;
 	}
 
 }
