@@ -1,4 +1,4 @@
-package br.com.infox.treinamento.trainee.pessoafisica;
+package br.com.infox.treinamento.trainee.pessoafisica.cdi;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +12,10 @@ import javax.inject.Named;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
+import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
+import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
+
 @Named("pessoaFisicaController")
 @RequestScoped
 public class PessoaFisicaControllerCDI implements Serializable {
@@ -21,7 +25,7 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	private static final Logger LOG = Logger.getLogger("trainee.pessoafisica.cdi");
 
 	@Inject
-	private PessoaFisicaService pessoaFisicaService;
+	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter;
 
 	private PessoaFisica novaPessoa;
 
@@ -39,8 +43,8 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	}
 
 	public void registrar() {
-		pessoaFisicaService.registrar(getNovaPessoa());
-		pessoas = pessoaFisicaService.recuperarPessoas();
+		pessoaFisicaServiceAdapter.registrar(getNovaPessoa());
+		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 		novoCadastro();
 	}
 
