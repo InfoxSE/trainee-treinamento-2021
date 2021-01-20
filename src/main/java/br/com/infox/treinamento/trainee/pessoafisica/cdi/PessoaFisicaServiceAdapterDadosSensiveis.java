@@ -1,21 +1,18 @@
 package br.com.infox.treinamento.trainee.pessoafisica.cdi;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.enterprise.inject.Alternative;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaSingletonEJB;
 
-@Alternative
+@DadosSensiveis
 public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaServiceAdapter {
 
 	private static final Logger LOG = Logger.getLogger("trainee.cdi.dados_sensiveis");
