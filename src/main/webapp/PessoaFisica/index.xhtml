@@ -6,6 +6,10 @@
 	xmlns:ifx="http://infox.com.br/trainee"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
+		<h:form id="alternarConfiguracaoAdapter">
+			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
+				action="#{pessoaFisicaController.alternarAdapter}" />
+		</h:form>
 		<h:form id="registrarMembro">
 
 			<ui:include src="/WEB-INF/components/inputText.xhtml">

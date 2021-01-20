@@ -22,11 +22,10 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	private static final Logger LOG = Logger.getLogger("trainee.pessoafisica.cdi");
 
 	@Inject
-	@DadosSensiveis
+	@Router
 	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter;
-
 	@Inject
-	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter2;
+	private PessoaFisicaServiceAdapterRouter adapterRouter;
 
 	private PessoaFisica novaPessoa;
 
@@ -43,8 +42,13 @@ public class PessoaFisicaControllerCDI implements Serializable {
 		LOG.info("PreDestroy "+getClass().getSimpleName());
 	}
 
+	public void alternarAdapter() {
+		adapterRouter.setUsaAdaptadorDadosSensiveis(!adapterRouter.isUsaAdaptadorDadosSensiveis());
+		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
+	}
+
 	public void registrar() {
-		pessoaFisicaServiceAdapter2.registrar(getNovaPessoa());
+		pessoaFisicaServiceAdapter.registrar(getNovaPessoa());
 		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 		novoCadastro();
 	}
