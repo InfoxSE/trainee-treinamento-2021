@@ -1,11 +1,17 @@
 package br.com.infox.treinamento.trainee.interceptors;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.interceptor.AroundInvoke;
+import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
-public class MethodAccessLogInterceptor {
+@MethodAccessLog
+@Interceptor
+public class MethodAccessLogInterceptor implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOG = Logger.getLogger("trainee.interceptor");
 
