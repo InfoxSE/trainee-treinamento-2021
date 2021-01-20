@@ -9,11 +9,8 @@ import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
 
 @Named("pessoaFisicaController")
@@ -35,7 +32,7 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	public void init() {
 		LOG.info("PostConstruct "+getClass().getSimpleName());
 		novoCadastro();
-		pessoas = getPessoaFisicaService().recuperarPessoas();
+		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 	}
 	@PreDestroy
 	public void destroy() {
@@ -46,16 +43,6 @@ public class PessoaFisicaControllerCDI implements Serializable {
 		pessoaFisicaServiceAdapter.registrar(getNovaPessoa());
 		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 		novoCadastro();
-	}
-
-	private PessoaFisicaService getPessoaFisicaService() {
-		try {
-			InitialContext initialContext = new InitialContext();
-			PessoaFisicaService lookup = (PessoaFisicaService) initialContext.lookup("java:module/PessoaFisicaStatelessEJB");
-			return lookup;
-		} catch (NamingException e) {
-			throw new IllegalStateException(e);
-		}
 	}
 
 	private void novoCadastro() {
