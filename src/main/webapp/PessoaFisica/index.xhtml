@@ -11,29 +11,29 @@
 			<ui:include src="/WEB-INF/components/inputText.xhtml">
 				<ui:param name="id" value="name" />
 				<ui:param name="label" value="Nome: " />
-				<ui:param name="value" value="#{pessoaFisicaControllerJSF.novaPessoa.name}" />
+				<ui:param name="value" value="#{pessoaFisicaController.novaPessoa.name}" />
 			</ui:include>
 			<ifx:inputText id="email" label="Email: "
-				value="#{pessoaFisicaControllerJSF.novaPessoa.email}" />
+				value="#{pessoaFisicaController.novaPessoa.email}" />
 
 			<ifx:inputText id="cpf" label="CPF: "
 				validator="pessoafisica.CpfValidator"
 				converter="pessoafisica.CpfConverter"
-				value="#{pessoaFisicaControllerJSF.novaPessoa.cpf}" />
+				value="#{pessoaFisicaController.novaPessoa.cpf}" />
 
 			<ifx:inputText id="phoneNumber" label="Telefone: "
-				value="#{pessoaFisicaControllerJSF.novaPessoa.phoneNumber}" />
+				value="#{pessoaFisicaController.novaPessoa.phoneNumber}" />
 
 			<ifx:inputText id="birthDate" label="Data de nascimento "
-					value="#{pessoaFisicaControllerJSF.novaPessoa.birthDate}">
+					value="#{pessoaFisicaController.novaPessoa.birthDate}">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</ifx:inputText>
 
 			<h:commandButton id="registrar" value="Registrar"
-				action="#{pessoaFisicaControllerJSF.registrar}" />
+				action="#{pessoaFisicaController.registrar}" />
 		</h:form>
 
-		<h:dataTable styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerJSF.pessoas}">
+		<h:dataTable styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaController.pessoas}">
 			<h:column>
 				<f:facet name="header">NOME</f:facet>
 				<h:outputText value="#{pessoa.name}" />
