@@ -1,6 +1,8 @@
-package br.com.infox.treinamento.trainee.pessoafisica;
+package br.com.infox.treinamento.trainee.pessoafisica.cdi;
 
 import java.util.List;
+
+import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 
 public interface PessoaFisicaServiceAdapter {
 

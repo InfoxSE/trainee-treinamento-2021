@@ -11,8 +11,6 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
-
 @ApplicationScoped
 public class PessoaFisicaServiceAdapterRouter implements Serializable {
 

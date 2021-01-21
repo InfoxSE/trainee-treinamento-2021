@@ -11,7 +11,6 @@ import javax.ejb.EJB;
 import br.com.infox.treinamento.trainee.interceptors.MethodAccessLog;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
 
 @DadosSensiveis
 public class PessoaFisicaServiceAdapterDadosSensiveis implements PessoaFisicaServiceAdapter {

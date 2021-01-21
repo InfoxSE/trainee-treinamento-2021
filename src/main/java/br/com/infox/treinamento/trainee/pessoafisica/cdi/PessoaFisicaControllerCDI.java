@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaServiceAdapter;
 
 @Named("pessoaFisicaController")
 @RequestScoped
