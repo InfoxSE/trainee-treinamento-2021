@@ -25,6 +25,7 @@
 
         <interceptors>
         	<class>br.com.infox.treinamento.trainee.interceptors.MethodAccessLogInterceptor</class>
+        	<class>br.com.infox.treinamento.trainee.interceptors.SuccessMessageInterceptor</class>
         </interceptors>
 
         <decorators>
