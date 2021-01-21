@@ -21,7 +21,6 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	private static final Logger LOG = Logger.getLogger("trainee.pessoafisica.cdi");
 
 	@Inject
-	@Router
 	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter;
 	@Inject
 	private PessoaFisicaServiceAdapterRouter adapterRouter;

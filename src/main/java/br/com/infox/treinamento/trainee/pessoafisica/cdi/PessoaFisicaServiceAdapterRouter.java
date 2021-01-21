@@ -38,24 +38,6 @@ public class PessoaFisicaServiceAdapterRouter implements Serializable {
 	}
 
 	@Produces
-	@Router
-	@Dependent
-	public PessoaFisicaServiceAdapter escolherDadosSensiveisOuNao(PessoaFisicaServiceAdapterDefault implDefault,
-			@DadosSensiveis PessoaFisicaServiceAdapterDadosSensiveis implDadosSensiveis) {
-		PessoaFisicaServiceAdapter impl = implDefault;
-		if (isUsaAdaptadorDadosSensiveis()) {
-			impl = implDadosSensiveis;
-		}
-		LOG.info(String.format("Fornecendo %s", impl.getClass().getName()));
-		return impl;
-	}
-
-
-	public void destruir(@Disposes @Router PessoaFisicaServiceAdapter adapter) {
-		LOG.info(String.format("Removendo %s", adapter.getClass().getName()));
-	}
-
-	@Produces
 	@Fibonacci
 	@Named("proximoNumeroFibonacci")
 	public int next() {
