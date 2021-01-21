@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import br.com.infox.treinamento.trainee.interceptors.MethodAccessLog;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
-import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaSingletonEJB;
 
 @MethodAccessLog
 public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAdapter {
@@ -44,6 +43,11 @@ public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAda
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A " + getClass().getSimpleName() + " => " + this.quantidadeAcessos);
 		return pessoaFisicaService.recuperarPessoas();
+	}
+
+	@Override
+	public void remover(PessoaFisica pessoa) {
+		pessoaFisicaService.remover(pessoa);
 	}
 
 }

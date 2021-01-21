@@ -10,4 +10,6 @@ public interface PessoaFisicaServiceAdapter {
 
 	void registrar(PessoaFisica novaPessoa);
 
+	void remover(PessoaFisica pessoa);
+
 }

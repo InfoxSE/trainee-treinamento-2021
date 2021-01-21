@@ -40,10 +40,21 @@ public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 	public void registrar(PessoaFisica novaPessoa) {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A STATELESS SESSION BEAN => "+this.quantidadeAcessos);
-		entityManager.persist(novaPessoa);
+		PessoaFisica pessoa = entityManager.find(PessoaFisica.class, novaPessoa.getId());
+		if (novaPessoa.getId() == null) {
+			entityManager.persist(pessoa);
+		} else {
+			novaPessoa = entityManager.merge(novaPessoa);
+		}
 
 		novaPessoa.setName(novaPessoa.getName()+" x");
 
+	}
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void remover(PessoaFisica pessoa) {
+		pessoa = entityManager.find(PessoaFisica.class, pessoa.getId());
+		entityManager.remove(pessoa);
 	}
 
 	@Override
