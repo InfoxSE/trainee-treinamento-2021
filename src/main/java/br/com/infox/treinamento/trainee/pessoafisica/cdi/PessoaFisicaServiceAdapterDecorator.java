@@ -6,9 +6,13 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.decorator.Decorator;
 import javax.decorator.Delegate;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.UserTransaction;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 
@@ -25,6 +29,11 @@ public abstract class PessoaFisicaServiceAdapterDecorator implements PessoaFisic
 	@Inject
 	private PessoaFisicaServiceAdapterRouter pessoaFisicaServiceAdapterRouter;
 
+	@Resource
+	private UserTransaction transaction;
+	@PersistenceContext(unitName = "primary")
+	private EntityManager entityManager;
+
 	@PostConstruct
 	public void init() {
 		LOG.info("PostConstruct " + getClass().getSimpleName());
@@ -39,11 +48,27 @@ public abstract class PessoaFisicaServiceAdapterDecorator implements PessoaFisic
 	public List<PessoaFisica> recuperarPessoas() {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A " + getClass().getSimpleName() + " => " + this.quantidadeAcessos);
-		List<PessoaFisica> recuperarPessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
-		if (pessoaFisicaServiceAdapterRouter.isUsaAdaptadorDadosSensiveis()) {
-			recuperarPessoas = recuperarPessoas.stream().map(this::esconderDados).collect(Collectors.toList());
+		try {
+//			try {
+//				transaction.begin();
+//			} catch (NotSupportedException | SystemException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			List<PessoaFisica> recuperarPessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
+			if (pessoaFisicaServiceAdapterRouter.isUsaAdaptadorDadosSensiveis()) {
+				recuperarPessoas = recuperarPessoas.stream().map(this::esconderDados).collect(Collectors.toList());
+			}
+			return recuperarPessoas;
+		} finally {
+//			try {
+//				transaction.commit();
+//			} catch (SecurityException | IllegalStateException | RollbackException | HeuristicMixedException
+//					| HeuristicRollbackException | SystemException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
-		return recuperarPessoas;
 	}
 
 	private String ocultarDados(String string) {
@@ -53,12 +78,12 @@ public abstract class PessoaFisicaServiceAdapterDecorator implements PessoaFisic
 	}
 
 	private PessoaFisica esconderDados(PessoaFisica pessoaFisica) {
-		PessoaFisica comDadosOcultos = new PessoaFisica();
-		comDadosOcultos.setCpf(ocultarDados(pessoaFisica.getCpf()));
-		comDadosOcultos.setEmail(ocultarDados(pessoaFisica.getEmail()));
-		comDadosOcultos.setName(ocultarDados(pessoaFisica.getName()));
-		comDadosOcultos.setPhoneNumber(ocultarDados(pessoaFisica.getPhoneNumber()));
-		return comDadosOcultos;
+//		entityManager.persist(pessoaFisica);
+		pessoaFisica.setCpf(ocultarDados(pessoaFisica.getCpf()));
+		pessoaFisica.setEmail(ocultarDados(pessoaFisica.getEmail()));
+		pessoaFisica.setName(ocultarDados(pessoaFisica.getName()));
+		pessoaFisica.setPhoneNumber(ocultarDados(pessoaFisica.getPhoneNumber()));
+		return pessoaFisica;
 	}
 
 }
