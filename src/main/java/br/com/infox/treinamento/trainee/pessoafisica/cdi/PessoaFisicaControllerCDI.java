@@ -6,14 +6,11 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 
-@Named("pessoaFisicaController")
-@RequestScoped
+@TraineeModel
 public class PessoaFisicaControllerCDI implements Serializable {
 
 	private static final long serialVersionUID = 1L;

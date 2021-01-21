@@ -15,36 +15,36 @@
 				</h:outputFormat>
 			</div>
 			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
-				action="#{pessoaFisicaController.alternarAdapter}" />
+				action="#{pessoaFisicaControllerCDI.alternarAdapter}" />
 		</h:form>
 		<h:form id="registrarMembro">
 
 			<ui:include src="/WEB-INF/components/inputText.xhtml">
 				<ui:param name="id" value="name" />
 				<ui:param name="label" value="Nome: " />
-				<ui:param name="value" value="#{pessoaFisicaController.novaPessoa.name}" />
+				<ui:param name="value" value="#{pessoaFisicaControllerCDI.novaPessoa.name}" />
 			</ui:include>
 			<ifx:inputText id="email" label="Email: "
-				value="#{pessoaFisicaController.novaPessoa.email}" />
+				value="#{pessoaFisicaControllerCDI.novaPessoa.email}" />
 
 			<ifx:inputText id="cpf" label="CPF: "
 				validator="pessoafisica.CpfValidator"
 				converter="pessoafisica.CpfConverter"
-				value="#{pessoaFisicaController.novaPessoa.cpf}" />
+				value="#{pessoaFisicaControllerCDI.novaPessoa.cpf}" />
 
 			<ifx:inputText id="phoneNumber" label="Telefone: "
-				value="#{pessoaFisicaController.novaPessoa.phoneNumber}" />
+				value="#{pessoaFisicaControllerCDI.novaPessoa.phoneNumber}" />
 
 			<ifx:inputText id="birthDate" label="Data de nascimento "
-					value="#{pessoaFisicaController.novaPessoa.birthDate}">
+					value="#{pessoaFisicaControllerCDI.novaPessoa.birthDate}">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</ifx:inputText>
 
 			<h:commandButton id="registrar" value="Registrar"
-				action="#{pessoaFisicaController.registrar}" />
+				action="#{pessoaFisicaControllerCDI.registrar}" />
 		</h:form>
 
-		<h:dataTable styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaController.pessoas}">
+		<h:dataTable styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">
 			<h:column>
 				<f:facet name="header">NOME</f:facet>
 				<h:outputText value="#{pessoa.name}" />
