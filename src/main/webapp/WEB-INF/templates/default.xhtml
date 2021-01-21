@@ -18,6 +18,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
     <title>${artifactId}</title>
@@ -30,6 +31,7 @@
         	<h:graphicImage library="gfx" name="rhjb_eap_logo.png" />
         </div>
         <div id="content">
+        	<p:messages globalOnly="true" showDetail="true" showSummary="true" showIcon="true" />
             <ui:insert name="content">
                     [Template content will be inserted here]
          </ui:insert>
