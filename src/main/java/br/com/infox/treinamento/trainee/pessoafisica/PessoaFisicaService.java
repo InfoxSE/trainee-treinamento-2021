@@ -11,4 +11,6 @@ public interface PessoaFisicaService {
 
 	void registrar(PessoaFisica novaPessoa);
 
+	List<PessoaFisica> recuperarPessoas(Integer offset, Integer limit);
+
 }
