@@ -92,6 +92,11 @@
 			<version>3.0.3.Final</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.omnifaces</groupId>
+			<artifactId>omnifaces</artifactId>
+			<version>1.14.1</version>
+		</dependency>
         <!-- First declare the APIs we depend on and need for compilation. All 
             of them are provided by JBoss EAP 6 -->
 
