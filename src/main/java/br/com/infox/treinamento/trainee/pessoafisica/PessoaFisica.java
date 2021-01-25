@@ -18,8 +18,13 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
-@Table(name = "tb_pessoa_fisica", uniqueConstraints = @UniqueConstraint(name="uk_pessoa_fisica_01", columnNames = "cd_cpf"))
+@Table(name = "tb_pessoa_fisica", uniqueConstraints = @UniqueConstraint(name = "uk_pessoa_fisica_01", columnNames = "cd_cpf"))
+@Getter
+@Setter
 public class PessoaFisica implements Serializable {
 
 	private static final long serialVersionUID = 1L;

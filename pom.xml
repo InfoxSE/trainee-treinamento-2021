@@ -113,6 +113,12 @@
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+	        <groupId>org.projectlombok</groupId>
+        	<artifactId>lombok</artifactId>
+        	<version>1.18.16</version>
+        	<scope>provided</scope>
+      	</dependency>
 
         <!-- Import the Common Annotations API (JSR-250), we use provided scope
             as the API is included in JBoss EAP 6 -->
@@ -206,6 +212,15 @@
             given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
+        	<plugin>
+        		<artifactId>maven-compiler-plugin</artifactId>
+        		<version>3.5.1</version>
+        		<configuration>
+        			<compilerArguments>
+        				<processor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</processor>
+        			</compilerArguments>
+        		</configuration>
+        	</plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${version.war.plugin}</version>
