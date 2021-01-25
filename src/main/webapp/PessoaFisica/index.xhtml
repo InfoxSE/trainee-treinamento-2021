@@ -18,35 +18,39 @@
 			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
 				action="#{pessoaFisicaControllerCDI.alternarAdapter}" />
 		</h:form>
-		<h:form id="registrarMembro">
+		<h:form id="iniciarNovoRegistro" rendered="#{not pessoaFisicaFormController.registroEmEdicao}">
+			<h:commandButton id="iniciarNovoRegistro" value="Cadastrar novo registro"
+				action="#{pessoaFisicaFormController.iniciarNovoRegistro}" />
+		</h:form>
+		<h:form id="registrarMembro" rendered="#{pessoaFisicaFormController.registroEmEdicao}">
 
 			<ui:include src="/WEB-INF/components/inputText.xhtml">
 				<ui:param name="id" value="name" />
 				<ui:param name="label" value="Nome: " />
-				<ui:param name="value" value="#{pessoaFisicaControllerCDI.novaPessoa.name}" />
+				<ui:param name="value" value="#{pessoaFisicaFormController.pessoaEmEdicao.name}" />
 			</ui:include>
-			<h:inputHidden id="id" value="#{pessoaFisicaControllerCDI.novaPessoa.id}">
+			<h:inputHidden id="id" value="#{pessoaFisicaFormController.pessoaEmEdicao.id}">
 				<f:converter converterId="javax.faces.Long" />
 			</h:inputHidden>
 			
 			<ifx:inputText id="email" label="Email: "
-				value="#{pessoaFisicaControllerCDI.novaPessoa.email}" />
+				value="#{pessoaFisicaFormController.pessoaEmEdicao.email}" />
 
 			<ifx:inputText id="cpf" label="CPF: "
 				validator="pessoafisica.CpfValidator"
 				converter="pessoafisica.CpfConverter"
-				value="#{pessoaFisicaControllerCDI.novaPessoa.cpf}" />
+				value="#{pessoaFisicaFormController.pessoaEmEdicao.cpf}" />
 
 			<ifx:inputText id="phoneNumber" label="Telefone: "
-				value="#{pessoaFisicaControllerCDI.novaPessoa.phoneNumber}" />
+				value="#{pessoaFisicaFormController.pessoaEmEdicao.phoneNumber}" />
 
 			<ifx:inputText id="birthDate" label="Data de nascimento "
-					value="#{pessoaFisicaControllerCDI.novaPessoa.birthDate}">
+					value="#{pessoaFisicaFormController.pessoaEmEdicao.birthDate}">
 				<f:convertDateTime pattern="dd/MM/yyyy" />
 			</ifx:inputText>
 
 			<h:commandButton id="registrar" value="Registrar"
-				action="#{pessoaFisicaControllerCDI.registrar}" />
+				action="#{pessoaFisicaFormController.registrar}" />
 		</h:form>
 
 		<h:dataTable id="listagempessoas" styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">

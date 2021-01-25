@@ -6,9 +6,11 @@ import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
+import lombok.Getter;
 
 @TraineeModel
 public class PessoaFisicaControllerCDI implements Serializable {
@@ -21,15 +23,15 @@ public class PessoaFisicaControllerCDI implements Serializable {
 	private PessoaFisicaServiceAdapter pessoaFisicaServiceAdapter;
 	@Inject
 	private PessoaFisicaServiceAdapterRouter adapterRouter;
+	@Inject
+	private PessoaFisicaFormController pessoaFisicaFormController;
 
-	private PessoaFisica novaPessoa;
-
+	@Getter
 	private List<PessoaFisica> pessoas;
 
 	@PostConstruct
 	public void init() {
 		LOG.info("PostConstruct "+getClass().getSimpleName());
-		novoCadastro();
 		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 	}
 	@PreDestroy
@@ -37,34 +39,19 @@ public class PessoaFisicaControllerCDI implements Serializable {
 		LOG.info("PreDestroy "+getClass().getSimpleName());
 	}
 
-	public void alternarAdapter() {
-		adapterRouter.setUsaAdaptadorDadosSensiveis(!adapterRouter.isUsaAdaptadorDadosSensiveis());
+	public void capturarEventoPessoaFisica(@Observes PessoaFisicaEvent evento) {
+		LOG.info(String.format("OPERAÇÃO DE %s EM PESSOA DE CPF %s", evento.getType(), evento.getPessoaFisica().getCpf()));
 		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 	}
 
-	public void registrar() {
-		pessoaFisicaServiceAdapter.registrar(getNovaPessoa());
-		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
-		novoCadastro();
+	public void alternarAdapter() {
+		adapterRouter.setUsaAdaptadorDadosSensiveis(!adapterRouter.isUsaAdaptadorDadosSensiveis());
 	}
 	public void remover(PessoaFisica pessoa) {
 		pessoaFisicaServiceAdapter.remover(pessoa);
-		pessoas = pessoaFisicaServiceAdapter.recuperarPessoas();
 	}
 	public void editar(PessoaFisica pessoa) {
-		this.novaPessoa = pessoa;
-	}
-
-	private void novoCadastro() {
-		this.novaPessoa = new PessoaFisica();
-	}
-
-	public PessoaFisica getNovaPessoa() {
-		return novaPessoa;
-	}
-
-	public List<PessoaFisica> getPessoas() {
-		return pessoas;
+		pessoaFisicaFormController.iniciarEdicao(pessoa);
 	}
 
 }

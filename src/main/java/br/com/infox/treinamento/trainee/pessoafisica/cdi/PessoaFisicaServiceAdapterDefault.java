@@ -1,5 +1,6 @@
 package br.com.infox.treinamento.trainee.pessoafisica.cdi;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -12,7 +13,9 @@ import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisicaService;
 
 @MethodAccessLog
-public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAdapter {
+public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAdapter, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOG = Logger.getLogger("trainee.cdi.default");
 

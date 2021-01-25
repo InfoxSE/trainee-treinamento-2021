@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -29,7 +30,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -122,22 +125,30 @@ public class PessoaFisica implements Serializable {
 
 	@PrePersist
 	protected void antesPersistir() {
-		MeioContato telefone = new MeioContato();
-		telefone.setTipoMeioContato(TipoMeioContato.TF);
-		telefone.setContato(getPhoneNumber());
-		getMeiosContato().add(telefone);
+		PessoaFisica objetoASerValidado = this;
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		Set<ConstraintViolation<PessoaFisica>> constraintViolations = validator.validate(objetoASerValidado, Default.class);
+		if (constraintViolations.isEmpty()) {
+			MeioContato telefone = new MeioContato();
+			telefone.setTipoMeioContato(TipoMeioContato.TF);
+			telefone.setContato(getPhoneNumber());
+			getMeiosContato().add(telefone);
 
-		MeioContato email = new MeioContato();
-		email.setTipoMeioContato(TipoMeioContato.EM);
-		email.setContato(getEmail());
-		getMeiosContato().add(email);
+			MeioContato email = new MeioContato();
+			email.setTipoMeioContato(TipoMeioContato.EM);
+			email.setContato(getEmail());
+			getMeiosContato().add(email);
+		} else {
+			Set<ConstraintViolation<?>> constraintViolations2 = new TreeSet<>(constraintViolations);
+			throw new ConstraintViolationException("Falha ao persistir", constraintViolations2);
+		}
 	}
 
 	@PreUpdate
 	protected void antesAtualizar() {
-		Set<ConstraintViolation<PessoaFisica>> validate = Validation.buildDefaultValidatorFactory().getValidator()
-				.validate(this, Default.class);
-		if (validate.isEmpty()) {
+		PessoaFisica objetoASerValidado = this;
+		Set<ConstraintViolation<PessoaFisica>> constraintViolations = Validation.buildDefaultValidatorFactory().getValidator().validate(objetoASerValidado, Default.class);
+		if (constraintViolations.isEmpty()) {
 			for (Iterator<MeioContato> iterator = getMeiosContato().iterator(); iterator.hasNext();) {
 				MeioContato m = iterator.next();
 				switch (m.getTipoMeioContato()) {
@@ -151,6 +162,9 @@ public class PessoaFisica implements Serializable {
 					break;
 				}
 			}
+		} else {
+			Set<ConstraintViolation<?>> constraintViolations2 = new TreeSet<>(constraintViolations);
+			throw new ConstraintViolationException("Falha ao persistir", constraintViolations2);
 		}
 	}
 

@@ -10,9 +10,14 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
+import br.com.infox.treinamento.trainee.pessoafisica.cdi.PessoaFisicaEvent;
+import br.com.infox.treinamento.trainee.pessoafisica.cdi.PessoaFisicaEventType;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
@@ -25,6 +30,9 @@ public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 
 	@PersistenceContext(unitName = "primary")
 	private EntityManager entityManager;
+
+	@Inject
+	private Event<PessoaFisicaEvent> dispatcher;
 
 	@PostConstruct
 	public void init() {
@@ -40,21 +48,23 @@ public class PessoaFisicaStatelessEJB implements PessoaFisicaService {
 	public void registrar(PessoaFisica novaPessoa) {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A STATELESS SESSION BEAN => "+this.quantidadeAcessos);
-		PessoaFisica pessoa = entityManager.find(PessoaFisica.class, novaPessoa.getId());
-		if (novaPessoa.getId() == null) {
+		PessoaFisica pessoa = novaPessoa;
+		PessoaFisicaEventType tipoEvento = PessoaFisicaEventType.INSERT;
+		if (pessoa.getId() == null) {
 			entityManager.persist(pessoa);
 		} else {
-			novaPessoa = entityManager.merge(novaPessoa);
+			tipoEvento = PessoaFisicaEventType.UPDATE;
+			pessoa = entityManager.merge(pessoa);
 		}
-
-		novaPessoa.setName(novaPessoa.getName()+" x");
-
+		pessoa.setName(pessoa.getName()+" x");
+		dispatcher.fire(new PessoaFisicaEvent(tipoEvento, pessoa));
 	}
 	@Override
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public void remover(PessoaFisica pessoa) {
 		pessoa = entityManager.find(PessoaFisica.class, pessoa.getId());
 		entityManager.remove(pessoa);
+		dispatcher.fire(new PessoaFisicaEvent(PessoaFisicaEventType.REMOVE, pessoa));
 	}
 
 	@Override
