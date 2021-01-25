@@ -33,40 +33,10 @@ body {
   border-bottom: 25px solid #8c8f91;
   width: 865px; /* subtract 40px from banner width for padding */
   background: #FFFFFF;
-  background-image: url("#{resource['gfx:headerbkg.png']}");
+  background-image: url("/trainee/javax.faces.resource/headerbkg.png.jsf?ln=gfx");
   background-repeat: repeat-x;
   padding-top: 30px;
   box-shadow: 3px 3px 15px #d5d5d5;
-}
-#content {
-  float: left;
-  width: 500px;
-  margin: 20px;
-}
-#aside {
-  font-size: 0.9em;
-  width: 275px;
-  float: left;
-  margin: 20px 0px;
-  border: 1px solid #D5D5D5;
-  background: #F1F1F1;
-  background-image: url("#{resource['gfx:asidebkg.png']}");
-  background-repeat: repeat-x;
-  padding: 20px;
-}
-
-#aside ul {
-  padding-left: 30px;
-}
-.dualbrand {
-  float: right;
-  padding-right: 10px;
-}
-#footer {
-  clear: both;
-  text-align: center;
-  color: #666666;
-  font-size: 0.85em;
 }
 code {
   font-size: 1.1em;
@@ -103,25 +73,17 @@ span.invalid {
 form {
   padding: 1em;
   font: 80%/1 sans-serif;
-  width: 375px;
   border: 1px solid #D5D5D5;
 }
 label {
-  float: left;
-  width: 15%;
   margin-left: 20px;
   margin-right: 0.5em;
-  padding-top: 0.2em;
   text-align: right;
   font-weight: bold;
   color:#363636;
 }
 input {
   margin-bottom: 8px;
-}
-.register {
-  float: left;
-  margin-left: 85px;
 }
 
 /*  -----  table style  -------  */
@@ -198,5 +160,5 @@ input {
 
 .simpletablestyle td a:hover {
   color:#3883ce;
-  text-decoration:none; 
+  text-decoration:none;
 }
