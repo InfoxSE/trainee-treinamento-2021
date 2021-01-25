@@ -18,40 +18,53 @@
 			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
 				action="#{pessoaFisicaControllerCDI.alternarAdapter}" />
 		</h:form>
-		<h:form id="iniciarNovoRegistro" rendered="#{not pessoaFisicaFormController.registroEmEdicao}">
-			<h:commandButton id="iniciarNovoRegistro" value="Cadastrar novo registro"
-				action="#{pessoaFisicaFormController.iniciarNovoRegistro}" />
-		</h:form>
-		<h:form id="registrarMembro" rendered="#{pessoaFisicaFormController.registroEmEdicao}">
-
-			<ui:include src="/WEB-INF/components/inputText.xhtml">
-				<ui:param name="id" value="name" />
-				<ui:param name="label" value="Nome: " />
-				<ui:param name="value" value="#{pessoaFisicaFormController.pessoaEmEdicao.name}" />
-			</ui:include>
-			<h:inputHidden id="id" value="#{pessoaFisicaFormController.pessoaEmEdicao.id}">
-				<f:converter converterId="javax.faces.Long" />
-			</h:inputHidden>
-			
-			<ifx:inputText id="email" label="Email: "
-				value="#{pessoaFisicaFormController.pessoaEmEdicao.email}" />
-
-			<ifx:inputText id="cpf" label="CPF: "
-				validator="pessoafisica.CpfValidator"
-				converter="pessoafisica.CpfConverter"
-				value="#{pessoaFisicaFormController.pessoaEmEdicao.cpf}" />
-
-			<ifx:inputText id="phoneNumber" label="Telefone: "
-				value="#{pessoaFisicaFormController.pessoaEmEdicao.phoneNumber}" />
-
-			<ifx:inputText id="birthDate" label="Data de nascimento "
-					value="#{pessoaFisicaFormController.pessoaEmEdicao.birthDate}">
-				<f:convertDateTime pattern="dd/MM/yyyy" />
-			</ifx:inputText>
-
-			<h:commandButton id="registrar" value="Registrar"
-				action="#{pessoaFisicaFormController.registrar}" />
-		</h:form>
+		<h:panelGroup id="painelFormsCadastro">
+			<h:form id="iniciarNovoRegistro" rendered="#{not pessoaFisicaFormController.registroEmEdicao}">
+				<h:commandButton id="iniciarNovoRegistro" value="Cadastrar novo registro"
+					action="#{pessoaFisicaFormController.iniciarNovoRegistro}">
+					<f:ajax render="@form :painelFormsCadastro" />
+				</h:commandButton>
+			</h:form>
+			<h:form id="registrarMembro" rendered="#{pessoaFisicaFormController.registroEmEdicao}">
+	
+				<ui:include src="/WEB-INF/components/inputText.xhtml">
+					<ui:param name="id" value="name" />
+					<ui:param name="label" value="Nome: " />
+					<ui:param name="value" value="#{pessoaFisicaFormController.pessoaEmEdicao.name}" />
+				</ui:include>
+				<h:inputHidden id="id" value="#{pessoaFisicaFormController.pessoaEmEdicao.id}">
+					<f:converter converterId="javax.faces.Long" />
+				</h:inputHidden>
+				
+				<ifx:inputText id="email" label="Email: "
+					value="#{pessoaFisicaFormController.pessoaEmEdicao.email}" />
+	
+				<ifx:inputText id="cpf" label="CPF: "
+					validator="pessoafisica.CpfValidator"
+					converter="pessoafisica.CpfConverter"
+					value="#{pessoaFisicaFormController.pessoaEmEdicao.cpf}">
+				</ifx:inputText>
+				<script>
+					document.getElementById('registrarMembro:cpf').addEventListener('input', function(event){
+						mojarra.ab(event.target, event, 'change', 'registrarMembro:cpf','registrarMembro:cpfMessages registrarMembro:cpf',{'CLIENT_BEHAVIOR_RENDERING_MODE':'OBSTRUSIVE'});
+					});
+				</script>
+	
+				<ifx:inputText id="phoneNumber" label="Telefone: "
+					value="#{pessoaFisicaFormController.pessoaEmEdicao.phoneNumber}">
+				</ifx:inputText>
+	
+				<ifx:inputText id="birthDate" label="Data de nascimento "
+						value="#{pessoaFisicaFormController.pessoaEmEdicao.birthDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</ifx:inputText>
+	
+				<h:commandButton id="registrar" value="Registrar"
+					action="#{pessoaFisicaFormController.registrar}">
+					<f:ajax execute="@form" render="@form :painelFormsCadastro :listagempessoas" />
+				</h:commandButton>
+			</h:form>
+		</h:panelGroup>
 
 		<h:dataTable id="listagempessoas" styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">
 			<h:column>
