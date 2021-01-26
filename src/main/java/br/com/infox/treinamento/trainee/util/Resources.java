@@ -39,7 +39,7 @@ import javax.persistence.PersistenceContext;
  */
 public class Resources {
     @Produces
-    @PersistenceContext
+    @PersistenceContext(unitName = "primary")
     private EntityManager em;
 
     @Produces
