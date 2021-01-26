@@ -10,6 +10,7 @@
 		<p:importEnum
 			type="br.com.infox.treinamento.trainee.pessoafisica.TipoMeioContato"
 			var="tipoMeioContatoEnum" allSuffix="ALL_ENUM_VALUES" />
+			
 		<h:form id="alternarConfiguracaoAdapter">
 			<div>
 				<h:outputFormat
@@ -20,7 +21,7 @@
 				</h:outputFormat>
 			</div>
 			<h:commandButton id="alternar"
-				value="Alternar Configuração de adaptador"
+				value="#{i18n['pessoaFisicaController.alternarAdapter']}"
 				action="#{pessoaFisicaControllerCDI.alternarAdapter}" />
 		</h:form>
 		<h:panelGroup id="painelFormsCadastro">
@@ -98,6 +99,7 @@
 
 							<ifx:inputFieldTemplate inputId="tipoMeioContato"
 								label="Meio de contato">
+								
 								<h:selectOneMenu id="tipoMeioContato"
 									value="#{pessoaFisicaFormController.meioContatoEmEdicao.tipoMeioContato}"
 									converter="omnifaces.GenericEnumConverter">
@@ -105,6 +107,7 @@
 									<f:selectItems value="#{tipoMeioContatoEnum.ALL_ENUM_VALUES}"
 										var="item" itemValue="#{item}" itemLabel="#{item.getLabel()}" />
 								</h:selectOneMenu>
+								
 							</ifx:inputFieldTemplate>
 
 							<ifx:inputText id="contato" label="Contato"
