@@ -24,6 +24,17 @@
 
     <!-- This descriptor activates the JSF 2.0 Servlet -->
 
+	<application>
+		<resource-bundle>
+			<base-name>br.com.infox.treinamento.i18n.Messages</base-name>
+			<var>i18n</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
+	</application>
+
     <!-- Write your navigation rules here. You are encouraged to use CDI 
         for creating @Named managed beans. -->
         
