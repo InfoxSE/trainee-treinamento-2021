@@ -12,6 +12,7 @@ import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -49,6 +50,7 @@ import lombok.Setter;
 @Table(name = "tb_pessoa_fisica", uniqueConstraints = @UniqueConstraint(name = "uk_pessoa_fisica_01", columnNames = "cd_cpf"))
 @Getter
 @Setter
+@EntityListeners(PessoaFisicaJpaListener.class)
 public class PessoaFisica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
