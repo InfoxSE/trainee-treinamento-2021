@@ -4,10 +4,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:ifx="http://infox.com.br/trainee"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<div>
-		<p:outputLabel id="#{id}Label" for="#{id}" value="#{label}" />
+	<ifx:inputFieldTemplate inputId="#{id}" label="#{label}">
 		<p:inputText id="#{id}" value="#{value}" placeholder="#{label}">
 			<c:if test="#{converter != null}">
 				<f:converter converterId="#{converter}" />
@@ -17,8 +17,6 @@
 			</c:if>
 			<ui:insert />
 		</p:inputText>
-		<p:messages id="#{id}Messages" globalOnly="false" for="#{id}" showDetail="false" showSummary="true" showIcon="true" />
-	</div>
-
+	</ifx:inputFieldTemplate>
 
 </ui:composition>

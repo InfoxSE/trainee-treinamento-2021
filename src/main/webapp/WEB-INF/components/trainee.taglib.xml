@@ -10,5 +10,9 @@ version="2.0">
 		<tag-name>inputText</tag-name>
 		<source>inputText.xhtml</source>
 	</tag>
+	<tag>
+		<tag-name>inputFieldTemplate</tag-name>
+		<source>inputFieldTemplate.xhtml</source>
+	</tag>
 
 </facelet-taglib>
