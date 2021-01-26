@@ -3,74 +3,163 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui" xmlns:p="http://primefaces.org/ui"
 	xmlns:ifx="http://infox.com.br/trainee"
 	template="/WEB-INF/templates/default.xhtml">
 	<ui:define name="content">
+		<p:importEnum
+			type="br.com.infox.treinamento.trainee.pessoafisica.TipoMeioContato"
+			var="tipoMeioContatoEnum" allSuffix="ALL_ENUM_VALUES" />
 		<h:form id="alternarConfiguracaoAdapter">
 			<div>
-				<h:outputFormat value="Próximo número da sequência de Fibonacci (Soma de {0} e {1}): {2}">
+				<h:outputFormat
+					value="Próximo número da sequência de Fibonacci (Soma de {0} e {1}): {2}">
 					<f:param value="#{fiboAnterior}" />
 					<f:param value="#{fiboAtual}" />
 					<f:param value="#{proximoNumeroFibonacci}" />
 				</h:outputFormat>
 			</div>
-			<h:commandButton id="alternar" value="Alternar Configuração de adaptador"
+			<h:commandButton id="alternar"
+				value="Alternar Configuração de adaptador"
 				action="#{pessoaFisicaControllerCDI.alternarAdapter}" />
 		</h:form>
 		<h:panelGroup id="painelFormsCadastro">
-			<h:form id="iniciarNovoRegistro" rendered="#{not pessoaFisicaFormController.registroEmEdicao}">
-				<h:commandButton id="iniciarNovoRegistro" value="Cadastrar novo registro"
+			<h:form id="iniciarNovoRegistro"
+				rendered="#{not pessoaFisicaFormController.registroEmEdicao}">
+				<h:commandButton id="iniciarNovoRegistro"
+					value="Cadastrar novo registro"
 					action="#{pessoaFisicaFormController.iniciarNovoRegistro}">
-					<f:ajax render="@form :painelFormsCadastro" />
+					<f:ajax render="@form :painelFormsCadastro :globalMessages" />
 				</h:commandButton>
 			</h:form>
-			<h:form id="registrarMembro" rendered="#{pessoaFisicaFormController.registroEmEdicao}">
-	
-				<ui:include src="/WEB-INF/components/inputText.xhtml">
-					<ui:param name="id" value="name" />
-					<ui:param name="label" value="Nome: " />
-					<ui:param name="value" value="#{pessoaFisicaFormController.pessoaEmEdicao.name}" />
-				</ui:include>
-				<h:inputHidden id="id" value="#{pessoaFisicaFormController.pessoaEmEdicao.id}">
-					<f:converter converterId="javax.faces.Long" />
-				</h:inputHidden>
-				
-				<ifx:inputText id="email" label="Email: "
-					value="#{pessoaFisicaFormController.pessoaEmEdicao.email}" />
-	
-				<ifx:inputText id="cpf" label="CPF: "
-					validator="pessoafisica.CpfValidator"
-					converter="pessoafisica.CpfConverter"
-					value="#{pessoaFisicaFormController.pessoaEmEdicao.cpf}">
-				</ifx:inputText>
-				<script>
-					document.getElementById('registrarMembro:cpf').addEventListener('input', function(event){
-						mojarra.ab(event.target, event, 'change', 'registrarMembro:cpf','registrarMembro:cpfMessages registrarMembro:cpf',{'CLIENT_BEHAVIOR_RENDERING_MODE':'OBSTRUSIVE'});
-					});
-				</script>
-	
-				<ifx:inputText id="phoneNumber" label="Telefone: "
-					value="#{pessoaFisicaFormController.pessoaEmEdicao.phoneNumber}">
-				</ifx:inputText>
-	
-				<ifx:inputText id="birthDate" label="Data de nascimento "
-						value="#{pessoaFisicaFormController.pessoaEmEdicao.birthDate}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</ifx:inputText>
-	
-				<h:commandButton id="registrar" value="Registrar"
-					action="#{pessoaFisicaFormController.registrar}">
-					<f:ajax execute="@form" render="@form :painelFormsCadastro :listagempessoas" />
-				</h:commandButton>
-			</h:form>
+			<h:panelGroup id="painelFormsCadastroEmEdicao"
+				rendered="#{pessoaFisicaFormController.registroEmEdicao}">
+				<h:panelGroup id="registrarMembroGroup">
+					<h:form id="registrarMembro">
+						<ui:include src="/WEB-INF/components/inputText.xhtml">
+							<ui:param name="id" value="name" />
+							<ui:param name="label" value="Nome: " />
+							<ui:param name="value"
+								value="#{pessoaFisicaFormController.pessoaEmEdicao.name}" />
+						</ui:include>
+						<h:inputHidden id="id"
+							value="#{pessoaFisicaFormController.pessoaEmEdicao.id}">
+							<f:converter converterId="javax.faces.Long" />
+						</h:inputHidden>
+
+						<ui:remove>
+							<ifx:inputText id="email" label="Email: "
+								value="#{pessoaFisicaFormController.pessoaEmEdicao.email}" />
+						</ui:remove>
+
+						<ifx:inputText id="cpf" label="CPF: "
+							validator="pessoafisica.CpfValidator"
+							converter="pessoafisica.CpfConverter"
+							value="#{pessoaFisicaFormController.pessoaEmEdicao.cpf}">
+
+						</ifx:inputText>
+
+						<ui:remove>
+							<ifx:inputText id="phoneNumber" label="Telefone: "
+								value="#{pessoaFisicaFormController.pessoaEmEdicao.phoneNumber}">
+							</ifx:inputText>
+						</ui:remove>
+
+						<ifx:inputText id="birthDate" label="Data de nascimento "
+							value="#{pessoaFisicaFormController.pessoaEmEdicao.birthDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</ifx:inputText>
+					</h:form>
+					<script>
+						Array.prototype.forEach.apply(document.getElementById('registrarMembro').querySelectorAll("input"),[(inputElement)=> {
+							let formId = inputElement.form.getAttribute("id");
+							let elementId = inputElement.getAttribute("id");
+							if (elementId != null){
+								console.log("Adicionando evento change em "+elementId);
+								inputElement.addEventListener('change', function(event) {
+									mojarra.ab(event.target, event, 'change', elementId, 'registrarMembroGroup',{'CLIENT_BEHAVIOR_RENDERING_MODE':'OBSTRUSIVE'});
+								});
+							}
+						}]);
+					</script>
+				</h:panelGroup>
+
+				<fieldset>
+					<legend>Meios de contato</legend>
+					<h:panelGroup id="meiosContatoGroup">
+						<h:form id="incluirNovoContatoForm">
+							<h:commandButton id="incluirNovoContato"
+								value="Incluir novo Meio de Contato">
+								<f:ajax execute="@form" render=":meiosContatoGroup :globalMessages" listener="#{pessoaFisicaFormController.incluirNovoContato}"/>
+							</h:commandButton>
+						</h:form>
+						<h:form id="meioContatoForm"
+								rendered="#{pessoaFisicaFormController.registroMeioContatoEmEdicao}">
+
+							<ifx:inputFieldTemplate inputId="tipoMeioContato"
+								label="Meio de contato">
+								<h:selectOneMenu id="tipoMeioContato"
+									value="#{pessoaFisicaFormController.meioContatoEmEdicao.tipoMeioContato}"
+									converter="omnifaces.GenericEnumConverter">
+									<f:selectItem itemLabel="Selecione..." noSelectionOption="true" />
+									<f:selectItems value="#{tipoMeioContatoEnum.ALL_ENUM_VALUES}"
+										var="item" itemValue="#{item}" itemLabel="#{item.getLabel()}" />
+								</h:selectOneMenu>
+							</ifx:inputFieldTemplate>
+
+							<ifx:inputText id="contato" label="Contato"
+								value="#{pessoaFisicaFormController.meioContatoEmEdicao.contato}"
+								 />
+
+							<h:commandButton id="registrarMeioContato"
+								value="Registrar Meio de Contato"
+								>
+								<f:ajax execute="@form" render=":meiosContatoGroup :globalMessages" listener="#{pessoaFisicaFormController.registrarMeioContato}" />
+							</h:commandButton>
+						</h:form>
+						<h:dataTable id="meiosContato" styleClass="simpletablestyle"
+							var="meioContato"
+							value="#{pessoaFisicaFormController.pessoaEmEdicao.meiosContato}">
+							<h:column>
+								<h:form id="meioContatoToolbarForm">
+									<p:commandButton id="edit" value="EDIT" ajax="true"
+										process="@this" update=":meiosContatoGroup"
+										action="#{pessoaFisicaFormController.iniciarEdicaoMeioContato(meioContato)}" />
+									<p:commandButton id="remove" value="REMOVE" ajax="true"
+										process="@this" update=":meiosContatoGroup"
+										action="#{pessoaFisicaFormController.removerMeioContato(meioContato)}" />
+								</h:form>
+							</h:column>
+							<h:column>
+								<f:facet name="header">TIPO DE MEIO DE CONTATO</f:facet>
+								<h:outputText value="#{meioContato.tipoMeioContato.getLabel()}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">CONTATO</f:facet>
+								<h:outputText value="#{meioContato.contato}" />
+							</h:column>
+						</h:dataTable>
+					</h:panelGroup>
+				</fieldset>
+
+				<h:form id="registrarForm">
+					<h:commandButton id="registrar" value="Registrar"
+						action="#{pessoaFisicaFormController.registrar}">
+						<f:ajax execute="@form"
+							render="@form :painelFormsCadastro :listagempessoas :globalMessages" />
+					</h:commandButton>
+				</h:form>
+			</h:panelGroup>
 		</h:panelGroup>
 
-		<h:dataTable id="listagempessoas" styleClass="simpletablestyle" var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">
+		<h:dataTable id="listagempessoas" styleClass="simpletablestyle"
+			var="pessoa" value="#{pessoaFisicaControllerCDI.pessoas}">
 			<h:column>
 				<h:form id="toolbarForm">
-					<p:commandButton id="edit" value="EDIT" ajax="false" action="#{pessoaFisicaControllerCDI.editar(pessoa)}" />
-					<p:commandButton id="remove" value="REMOVE" ajax="false" action="#{pessoaFisicaControllerCDI.remover(pessoa)}" />
+					<p:commandButton id="edit" value="EDIT" ajax="false"
+						action="#{pessoaFisicaControllerCDI.editar(pessoa)}" />
+					<p:commandButton id="remove" value="REMOVE" ajax="false"
+						action="#{pessoaFisicaControllerCDI.remover(pessoa)}" />
 				</h:form>
 			</h:column>
 			<h:column>
@@ -78,16 +167,24 @@
 				<h:outputText value="#{pessoa.name}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">EMAIL</f:facet>
-				<h:outputText value="#{pessoa.email}" />
-			</h:column>
-			<h:column>
 				<f:facet name="header">CPF</f:facet>
-				<h:outputText converter="pessoafisica.CpfConverter" value="#{pessoa.cpf}" />
+				<h:outputText converter="pessoafisica.CpfConverter"
+					value="#{pessoa.cpf}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">TELEFONE</f:facet>
-				<h:outputText value="#{pessoa.phoneNumber}" />
+				<f:facet name="header">MEIOS DE CONTATO</f:facet>
+				<h:dataTable id="meiosContato" styleClass="simpletablestyle"
+					var="meioContato"
+					value="#{pessoa.meiosContato}">
+					<h:column>
+						<f:facet name="header">TIPO DE MEIO DE CONTATO</f:facet>
+						<h:outputText value="#{meioContato.tipoMeioContato.getLabel()}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">CONTATO</f:facet>
+						<h:outputText value="#{meioContato.contato}" />
+					</h:column>
+				</h:dataTable>
 			</h:column>
 			<h:column>
 				<f:facet name="header">DATA DE NASCIMENTO</f:facet>

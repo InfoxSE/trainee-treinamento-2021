@@ -40,8 +40,8 @@ public class PessoaFisicaSingletonEJB {
 		for (PessoaFisica pessoaFisica : pessoas) {
 			LOG.info("NOME => " + pessoaFisica.getName());
 			LOG.info("CPF => " + pessoaFisica.getCpf());
-			LOG.info("EMAIL => " + pessoaFisica.getEmail());
-			LOG.info("TELEFONE => " + pessoaFisica.getPhoneNumber());
+//			LOG.info("EMAIL => " + pessoaFisica.getEmail());
+//			LOG.info("TELEFONE => " + pessoaFisica.getPhoneNumber());
 		}
 	}
 

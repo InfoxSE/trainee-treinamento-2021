@@ -80,9 +80,9 @@ public abstract class PessoaFisicaServiceAdapterDecorator implements PessoaFisic
 	private PessoaFisica esconderDados(PessoaFisica pessoaFisica) {
 //		entityManager.persist(pessoaFisica);
 		pessoaFisica.setCpf(ocultarDados(pessoaFisica.getCpf()));
-		pessoaFisica.setEmail(ocultarDados(pessoaFisica.getEmail()));
+//		pessoaFisica.setEmail(ocultarDados(pessoaFisica.getEmail()));
 		pessoaFisica.setName(ocultarDados(pessoaFisica.getName()));
-		pessoaFisica.setPhoneNumber(ocultarDados(pessoaFisica.getPhoneNumber()));
+//		pessoaFisica.setPhoneNumber(ocultarDados(pessoaFisica.getPhoneNumber()));
 		return pessoaFisica;
 	}
 
