@@ -1,0 +1,133 @@
+<?xml version="1.0" ?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://server.ws.trainee.treinamento.infox.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PessoaFisicaEndpointServerService" targetNamespace="http://server.ws.trainee.treinamento.infox.com.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://server.ws.trainee.treinamento.infox.com.br/" elementFormDefault="unqualified" targetNamespace="http://server.ws.trainee.treinamento.infox.com.br/" version="1.0">
+
+  <xs:element name="cadastrarPessoaFisica" type="tns:cadastrarPessoaFisica"></xs:element>
+
+  <xs:element name="cadastrarPessoaFisicaResponse" type="tns:cadastrarPessoaFisicaResponse"></xs:element>
+
+  <xs:element name="sayHello" type="tns:sayHello"></xs:element>
+
+  <xs:element name="sayHelloResponse" type="tns:sayHelloResponse"></xs:element>
+
+  <xs:complexType name="cadastrarPessoaFisica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:pessoaFisica"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pessoaFisica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="birthDate" type="xs:dateTime"></xs:element>
+      <xs:element minOccurs="0" name="cpf" type="xs:string"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="enderecos" nillable="true" type="tns:endereco"></xs:element>
+      <xs:element minOccurs="0" name="id" type="xs:long"></xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="meiosContato" nillable="true" type="tns:meioContato"></xs:element>
+      <xs:element minOccurs="0" name="name" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="endereco">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="bairro" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="cep" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="cidade" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="complemento" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="id" type="xs:int"></xs:element>
+      <xs:element minOccurs="0" name="logradouro" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="numero" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="uf" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="meioContato">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contato" type="xs:string"></xs:element>
+      <xs:element minOccurs="0" name="id" type="xs:long"></xs:element>
+      <xs:element minOccurs="0" name="tipoMeioContato" type="tns:tipoMeioContato"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cadastrarPessoaFisicaResponse">
+    <xs:sequence></xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sayHello">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sayHelloResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"></xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="tipoMeioContato">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EM"></xs:enumeration>
+      <xs:enumeration value="TF"></xs:enumeration>
+      <xs:enumeration value="TM"></xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="cadastrarPessoaFisicaResponse">
+    <wsdl:part element="tns:cadastrarPessoaFisicaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHelloResponse">
+    <wsdl:part element="tns:sayHelloResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cadastrarPessoaFisica">
+    <wsdl:part element="tns:cadastrarPessoaFisica" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHello">
+    <wsdl:part element="tns:sayHello" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PessoaFisicaEndpointServer">
+    <wsdl:operation name="cadastrarPessoaFisica">
+      <wsdl:input message="tns:cadastrarPessoaFisica" name="cadastrarPessoaFisica">
+    </wsdl:input>
+      <wsdl:output message="tns:cadastrarPessoaFisicaResponse" name="cadastrarPessoaFisicaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sayHello">
+      <wsdl:input message="tns:sayHello" name="sayHello">
+    </wsdl:input>
+      <wsdl:output message="tns:sayHelloResponse" name="sayHelloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PessoaFisicaEndpointServerServiceSoapBinding" type="tns:PessoaFisicaEndpointServer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="cadastrarPessoaFisica">
+      <soap:operation soapAction="CadastrarPessoaFisica" style="document"></soap:operation>
+      <wsdl:input name="cadastrarPessoaFisica">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="cadastrarPessoaFisicaResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sayHello">
+      <soap:operation soapAction="Hello" style="document"></soap:operation>
+      <wsdl:input name="sayHello">
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output name="sayHelloResponse">
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PessoaFisicaEndpointServerService">
+    <wsdl:port binding="tns:PessoaFisicaEndpointServerServiceSoapBinding" name="PessoaFisicaEndpointServerPort">
+      <soap:address location="http://localhost:8080/trainee/PessoaFisicaEndpointServer"></soap:address>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
