@@ -14,45 +14,45 @@ import br.com.infox.treinamento.trainee.jpa.EntityLogRegistryBean;
 import br.com.infox.treinamento.trainee.jpa.TipoOperacaoLogEnum;
 
 
-public class PessoaFisicaJpaListener {
+public class JpaEntityLogger {
 
-	private static final Logger LOG = Logger.getLogger("jpa.listener.PessoaFisica");
+	private static final Logger LOG = Logger.getLogger("jpa.listener.entity");
 
     @PostLoad
-    public void postLoad(PessoaFisica pessoaFisica) {
+    public void postLoad(Object entity) {
     	LOG.info(getClass().getSimpleName()+".postLoad()");
     }
 
 	@PrePersist
-    public void prePersist(PessoaFisica pessoaFisica) {
+    public void prePersist(Object entity) {
 		LOG.info(getClass().getSimpleName()+".prePersist()");
     }
 
     @PostPersist
-    public void postPersist(PessoaFisica pessoaFisica) {
-    	EntityLogRegistryBean.instance().registrarLog(TipoOperacaoLogEnum.I, pessoaFisica);
+    public void postPersist(Object entity) {
+    	EntityLogRegistryBean.instance().registrarLog(TipoOperacaoLogEnum.I, entity);
     	LOG.info(getClass().getSimpleName()+".postPersist()");
     }
 
     @PreUpdate
-    public void preUpdate(PessoaFisica pessoaFisica) {
+    public void preUpdate(Object entity) {
     	LOG.info(getClass().getSimpleName()+".preUpdate()");
     }
 
     @PostUpdate
-    public void postUpdate(PessoaFisica pessoaFisica) {
-    	EntityLogRegistryBean.instance().registrarLog(TipoOperacaoLogEnum.U, pessoaFisica);
+    public void postUpdate(Object entity) {
+    	EntityLogRegistryBean.instance().registrarLog(TipoOperacaoLogEnum.U, entity);
     	LOG.info(getClass().getSimpleName()+".postUpdate()");
     }
 
     @PreRemove
-    public void preRemove(PessoaFisica pessoaFisica) {
+    public void preRemove(Object entity) {
     	LOG.info(getClass().getSimpleName()+".preRemove()");
     }
 
     @PostRemove
-    public void postRemove(PessoaFisica pessoaFisica) {
-    	EntityLogRegistryBean.instance().registrarLog(TipoOperacaoLogEnum.D, pessoaFisica);
+    public void postRemove(Object entity) {
+    	EntityLogRegistryBean.instance().registrarLog(TipoOperacaoLogEnum.D, entity);
     	LOG.info(getClass().getSimpleName()+".postRemove()");
     }
 

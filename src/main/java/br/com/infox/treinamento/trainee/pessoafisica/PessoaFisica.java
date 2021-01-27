@@ -42,7 +42,7 @@ import lombok.Setter;
 @Table(name = "tb_pessoa_fisica", uniqueConstraints = @UniqueConstraint(name = "uk_pessoa_fisica_01", columnNames = "cd_cpf"))
 @Getter
 @Setter
-@EntityListeners(PessoaFisicaJpaListener.class)
+@EntityListeners(JpaEntityLogger.class)
 public class PessoaFisica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
