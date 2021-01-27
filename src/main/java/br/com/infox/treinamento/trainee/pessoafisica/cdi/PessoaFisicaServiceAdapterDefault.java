@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
 
 import br.com.infox.treinamento.trainee.interceptors.MethodAccessLog;
 import br.com.infox.treinamento.trainee.pessoafisica.PessoaFisica;
@@ -23,6 +25,8 @@ public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAda
 
 	@EJB
 	private PessoaFisicaService pessoaFisicaService;
+	@Inject
+	private Event<PessoaFisicaEvent> dispatcher;
 
 	@PostConstruct
 	public void init() {
@@ -38,7 +42,12 @@ public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAda
 	public void registrar(PessoaFisica novaPessoa) {
 		this.quantidadeAcessos++;
 		LOG.info("QUANTIDADES DE ACESSO A " + getClass().getSimpleName() + " => " + this.quantidadeAcessos);
+		PessoaFisicaEventType tipoEvento = PessoaFisicaEventType.INSERT;
+		if (novaPessoa.getId() != null) {
+			tipoEvento = PessoaFisicaEventType.UPDATE;
+		}
 		pessoaFisicaService.registrar(novaPessoa);
+		dispatcher.fire(new PessoaFisicaEvent(tipoEvento, novaPessoa));
 	}
 
 	@Override
@@ -49,8 +58,9 @@ public class PessoaFisicaServiceAdapterDefault implements PessoaFisicaServiceAda
 	}
 
 	@Override
-	public void remover(PessoaFisica pessoa) {
-		pessoaFisicaService.remover(pessoa);
+	public void remover(Long idPessoa) {
+		PessoaFisica pessoa = pessoaFisicaService.remover(idPessoa);
+		dispatcher.fire(new PessoaFisicaEvent(PessoaFisicaEventType.REMOVE, pessoa));
 	}
 
 }

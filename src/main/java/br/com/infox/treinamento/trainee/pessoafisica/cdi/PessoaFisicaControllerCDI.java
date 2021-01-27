@@ -48,7 +48,7 @@ public class PessoaFisicaControllerCDI implements Serializable {
 		adapterRouter.setUsaAdaptadorDadosSensiveis(!adapterRouter.isUsaAdaptadorDadosSensiveis());
 	}
 	public void remover(PessoaFisica pessoa) {
-		pessoaFisicaServiceAdapter.remover(pessoa);
+		pessoaFisicaServiceAdapter.remover(pessoa.getId());
 	}
 	public void editar(PessoaFisica pessoa) {
 		pessoaFisicaFormController.iniciarEdicao(pessoa);
