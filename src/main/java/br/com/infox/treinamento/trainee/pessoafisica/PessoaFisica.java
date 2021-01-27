@@ -54,7 +54,7 @@ public class PessoaFisica implements Serializable {
 
 	@NotNull
 	@Size(min = 11, max = 11)
-	@Pattern(regexp = "[0-9]+", message = "Must contain only numbers")
+	@CPF
 	@Column(name = "cd_cpf")
 	private String cpf;
 
