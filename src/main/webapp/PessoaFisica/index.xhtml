@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+       <h:form id="registrarPessoaFisica">
+       
+       	<h:panelGrid columns="3" columnClasses="titleCell">
+       	
+			<h:outputLabel for="name" value="Nome:" />
+			<h:inputText id="name" value="#{pessoaFisicaControllerJSF.novaPessoa.name}"/>
+			<h:messages for="name" errorClass="invalid"/>
+			
+			<h:outputLabel for="cpf" value="CPF:" />
+			<h:inputText id="cpf" 
+				validator="pessoafisica.CpfValidator"
+				converter="pessoafisica.CpfConverter"
+				value="#{pessoaFisicaControllerJSF.novaPessoa.cpf}"/>
+			<h:messages for="cpf" errorClass="invalid"/>
+			
+			<h:outputLabel for="email" value="Email:" />
+			<h:inputText id="email" value="#{pessoaFisicaControllerJSF.novaPessoa.email}"/>
+			<h:messages for="email" errorClass="invalid"/>
+			
+			<h:outputLabel for="phoneNumber" value="Telefone:" />
+			<h:inputText id="phoneNumber" value="#{pessoaFisicaControllerJSF.novaPessoa.phoneNumber}"/>
+			<h:messages for="phoneNumber" errorClass="invalid"/>
+			
+			<h:outputLabel for="birthDate" value="Data de Nascimento:" />
+			<h:inputText id="birthDate" 
+				value="#{pessoaFisicaControllerJSF.novaPessoa.birthDate}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</h:inputText> 
+			<h:messages for="birthDate" errorClass="invalid"/>
+						
+		</h:panelGrid>
+		<p>
+			<h:panelGrid colums="2">
+				<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaControllerJSF.registrar}"/>
+			</h:panelGrid>
+		</p>
+       </h:form>
+       
+       <h:dataTable var="pessoa" styleClass="simpletablestyle" value="#{pessoaFisicaControllerJSF.pessoas}">
+       		<h:column>
+       			<f:facet name="header">NOME</f:facet>
+       			<h:outputText value="#{pessoa.name}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">EMAIL</f:facet>
+       			<h:outputText value="#{pessoa.email}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">CPF</f:facet>
+       			<h:outputText converter="pessoafisica.CpfConverter" value="#{pessoa.cpf}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">TELEFONE</f:facet>
+       			<h:outputText value="#{pessoa.phoneNumber}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">DATA DE NASCIMENTO</f:facet>
+       			<h:outputText value="#{pessoa.birthDate}">
+       				<f:convertDateTime pattern="dd/MM/yyyy"/>
+       			</h:outputText>
+       		</h:column>
+       </h:dataTable>
+		
+    </ui:define>
+</ui:composition>
