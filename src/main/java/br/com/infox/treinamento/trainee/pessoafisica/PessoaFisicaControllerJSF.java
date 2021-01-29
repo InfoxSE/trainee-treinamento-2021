@@ -38,7 +38,7 @@ public class PessoaFisicaControllerJSF implements Serializable {
 			this.pessoas = new ArrayList<>(0);
 		}
 		getPessoas().add(getNovaPessoa());
-		this.novaPessoa = null;
+		this.novaPessoa = new PessoaFisica();
 		LOG.info("PESSOAS DA LISTA");
 		for (PessoaFisica pessoaFisica : pessoas) {
 			LOG.info("NOME => " + pessoaFisica.getName());
