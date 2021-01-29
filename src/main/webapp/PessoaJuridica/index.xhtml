@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ifx="http://infox.com.br/trainee"
+    template="/WEB-INF/templates/default.xhtml">
+    <ui:define name="content">
+    	<h1>Registro de Pessoa Jurídica</h1>
+    	
+    	<div>
+            <p>Insira as informações abaixo.</p>
+        </div>
+    	
+       <h:form id="registrarPessoaJuridica">
+       		
+       		<ifx:inputText id="nome" label="Nome: "
+					value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.nome}" />
+			
+			<ifx:inputText id="cnpj" label="CNPJ: "
+					value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.cnpj}" />
+			
+			<ifx:inputText id="razaoSocial" label="Razao Social: "
+					value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.razaoSocial}" />
+			
+			<div>
+				<h:commandButton id="registrar" value="Registrar" action="#{pessoaJuridicaControllerJSF.registrar}"/>
+			</div>
+			
+       </h:form>
+       <h2>Pessoas Jurídicas</h2>
+       <h:dataTable var="pessoajuridica" styleClass="simpletablestyle" value="#{pessoaJuridicaControllerJSF.pessoasJuridicas}">
+       		<h:column>
+       			<f:facet name="header">NOME</f:facet>
+       			<h:outputText value="#{pessoajuridica.nome}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">RAZÃO SOCIAL</f:facet>
+       			<h:outputText value="#{pessoajuridica.razaoSocial}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">CNPJ</f:facet> 
+       			<h:outputText value="#{pessoajuridica.cnpj}"/>
+       		</h:column>
+       </h:dataTable>
+		
+    </ui:define>
+</ui:composition>
