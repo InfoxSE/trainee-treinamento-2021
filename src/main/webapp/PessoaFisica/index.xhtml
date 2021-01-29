@@ -8,8 +8,7 @@
     template="/WEB-INF/templates/default.xhtml">
     <ui:define name="content">
        <h:form id="registrarPessoaFisica">
-       		<h:panelGrid columns="3" columnClasses="titleCell">
-       		
+       	      
 				<ifx:inputText id="name" label="Nome: "
 					value="#{pessoaFisicaControllerJSF.novaPessoa.name}" />
 				
@@ -24,20 +23,11 @@
 				<ifx:inputText id="phoneNumber" label="Telefone: "
 					 value = "#{pessoaFisicaControllerJSF.novaPessoa.phoneNumber}"/>
 				
-				<h:outputLabel for="birthDate" value="Data de Nascimento: " />
-				<h:inputText id="birthDate"
-					value="#{pessoaFisicaControllerJSF.novaPessoa.birthDate}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:inputText>
-				<h:messages for="birthDate" errorClass="invalid" />
-				 
-				<!--
-	       		<ifx:inputText id="birthDate" label="Data de Nascimento: "
+				<ifx:inputText id="birthDate" label="Data de Nascimento: "
 	       			 value = "#{pessoaFisicaControllerJSF.novaPessoa.birthDate}"> 
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</ifx:inputText>
-				-->
-			</h:panelGrid>
+				
 		<p>
 			<h:panelGrid colums="2">
 				<h:commandButton id="registrar" value="Registrar" action="#{pessoaFisicaControllerJSF.registrar}"/>
