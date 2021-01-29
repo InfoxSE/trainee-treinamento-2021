@@ -21,7 +21,7 @@ import org.omnifaces.filter.HttpFilter;
 )
 public class RedirectLandingPageFilter extends HttpFilter {
 	
-	private static final Logger LOG = Logger.getLogger("br.com.infox.treinamento.trainee.filters");
+	private static final Logger LOG = Logger.getLogger("trainee.filters");
 	private String initParameter;
 	
 	@Override
