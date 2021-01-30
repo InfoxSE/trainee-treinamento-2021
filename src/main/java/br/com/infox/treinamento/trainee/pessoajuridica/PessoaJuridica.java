@@ -19,7 +19,6 @@ public class PessoaJuridica {
     @Size(min = 14, max = 14)
     @Pattern(regexp = "[0-9]*", message = "Must contain only numbers")
 	private String cnpj;
-	//xx.xxx.xxx/xxxx-xx 
 
 	public String getNome() {
 		return nome;
