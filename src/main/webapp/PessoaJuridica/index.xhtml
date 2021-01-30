@@ -13,24 +13,26 @@
             <p>Insira as informações abaixo.</p>
         </div>
     	
-       <h:form id="registrarPessoaJuridica">
-       		
-       		<ifx:inputText id="nome" label="Nome: "
+		<h:form id="registrarPessoaJuridica">
+			<h:panelGrid columns="2" columnClasses="titleCell">
+				<ifx:inputText id="nome" label="Nome: "
 					value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.nome}" />
-			
-			<ifx:inputText id="cnpj" label="CNPJ: "
+				
+				<ifx:inputText id="cnpj" label="CNPJ: "
 					validator="pessoajuridica.CnpjValidator"
-			        converter="pessoajuridica.CnpjConverter"
+					converter="pessoajuridica.CnpjConverter"
 					value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.cnpj}" />
-			
-			<ifx:inputText id="razaoSocial" label="Razao Social: "
+				
+				<ifx:inputText id="razaoSocial" label="Razao Social: "
 					value="#{pessoaJuridicaControllerJSF.novaPessoaJuridica.razaoSocial}" />
-			
-			<div>
-				<h:commandButton id="registrar" value="Registrar" action="#{pessoaJuridicaControllerJSF.registrar}"/>
-			</div>
-			
-       </h:form>
+				
+				<div>
+					<h:commandButton id="registrar" value="Registrar" action="#{pessoaJuridicaControllerJSF.registrar}"/>
+				</div>
+				
+			</h:panelGrid>
+        </h:form>
+        
        <h2>Pessoas Jurídicas</h2>
        <h:dataTable var="pessoa" styleClass="simpletablestyle" value="#{pessoaJuridicaControllerJSF.pessoasJuridicas}">
        		<h:column>
