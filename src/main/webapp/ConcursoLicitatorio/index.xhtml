@@ -9,6 +9,12 @@
     template="/WEB-INF/templates/default.xhtml">
     
     <ui:define name="content">
+       	<h1>Registro de Concurso Licitatório</h1>
+    	
+    	<div>
+            <p>Insira as informações abaixo.</p>
+        </div>
+    
 		<h:form id="registrarConcursoLicitatorio">
 			<h:panelGrid columns="2" columnClasses="titleCell">
 			
@@ -37,6 +43,7 @@
 			</h:panelGrid>
 		</h:form>
        
+       <h2>Concursos Licitatórios</h2>
        <h:dataTable var="concurso" styleClass="simpletablestyle" value="#{concursoLicitatorioControllerJSF.concursos}">
        		<h:column>
        			<f:facet name="header">NOME</f:facet>
