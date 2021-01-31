@@ -6,6 +6,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ifx="http://infox.com.br/trainee"
     template="/WEB-INF/templates/default.xhtml">
+    
     <ui:define name="content">
 		<h:form id="registrarConcursoLicitatorio">
 			<h:panelGrid columns="2" columnClasses="titleCell">
@@ -17,8 +18,9 @@
 					value="#{concursoLicitatorioControllerJSF.novoConcurso.descricao}" />
 				
 				<ifx:inputText id="quantidade" label="Quantidade: "
+					converter="javax.faces.Integer"
 					value="#{concursoLicitatorioControllerJSF.novoConcurso.quantidade}" />
-				
+
 				<ifx:inputText id="dataDisponibilizacao" label="Data de Disponibilizacao: "
 				    value = "#{concursoLicitatorioControllerJSF.novoConcurso.dataDisponibilizacao}"> 
 					<f:convertDateTime pattern="dd/MM/yyyy" />

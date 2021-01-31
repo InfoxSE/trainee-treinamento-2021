@@ -3,7 +3,6 @@ package br.com.infox.treinamento.trainee.concursolicitatorio;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class ConcursoLicitatorio {
@@ -21,11 +20,9 @@ public class ConcursoLicitatorio {
 	
 	@NotNull
 	private Date dataLimite;
-	    //Deve possuir uma validação que impede que seja anteriro ou igual à data de disponibilização
 	
 	@NotNull
-	@Pattern(regexp = "[0-9]*", message = "Must contain only numbers")
-	private String quantidade;
+	private Integer quantidade;
 	
 	public String getNome() {
 		return nome;
@@ -59,11 +56,11 @@ public class ConcursoLicitatorio {
 		this.dataLimite = dataLimite;
 	}
 	
-	public String getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 	
-	public void setQuantidade(String quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
