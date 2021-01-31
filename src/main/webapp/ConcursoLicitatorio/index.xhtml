@@ -4,6 +4,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:o="http://omnifaces.org/ui"
     xmlns:ifx="http://infox.com.br/trainee"
     template="/WEB-INF/templates/default.xhtml">
     
@@ -21,15 +22,13 @@
 					converter="javax.faces.Integer"
 					value="#{concursoLicitatorioControllerJSF.novoConcurso.quantidade}" />
 
-				<ifx:inputText id="dataDisponibilizacao" label="Data de Disponibilizacao: "
-				    value = "#{concursoLicitatorioControllerJSF.novoConcurso.dataDisponibilizacao}"> 
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</ifx:inputText>
-				
-				<ifx:inputText id="dataLimite" label="Data Limite: "
-				    value = "#{concursoLicitatorioControllerJSF.novoConcurso.dataLimite}"> 
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</ifx:inputText>
+				<ifx:inputDate id="dataDisponibilizacao" label="Data de Disponibilização:" 
+       				value="#{concursoLicitatorioControllerJSF.novoConcurso.dataDisponibilizacao}" />
+			
+          		<ifx:inputDate id="dataLimite" label="Data Limite:"
+					value="#{concursoLicitatorioControllerJSF.novoConcurso.dataLimite}" />
+					
+				<o:validateOrder components="dataDisponibilizacao dataLimite" />
 			
 				<div>
 					<h:commandButton id="registrar" value="Registrar" action="#{concursoLicitatorioControllerJSF.registrar}"/>
