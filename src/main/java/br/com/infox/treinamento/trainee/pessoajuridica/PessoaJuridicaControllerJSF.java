@@ -16,21 +16,17 @@ public class PessoaJuridicaControllerJSF implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger LOG = Logger.getLogger("trainee.pessoajuridicacontroller");
-	
 	private PessoaJuridica novaPessoaJuridica;
 
 	private List<PessoaJuridica> pessoasJuridicas;
 	
 	@PostConstruct
 	public void init() {
-		LOG.info("PostConstruct PessoaJuridicaControllerJSF");
 		this.novaPessoaJuridica = new PessoaJuridica();
 	}
 	
 	@PreDestroy
 	public void destroy() {
-		LOG.info("PreDestroy PessoaJuridicaControllerJSF");
 	}
 
 	public void registrar() {
@@ -39,12 +35,6 @@ public class PessoaJuridicaControllerJSF implements Serializable{
 		}
 		getPessoasJuridicas().add(getNovaPessoaJuridica());
 		this.novaPessoaJuridica = new PessoaJuridica();
-		LOG.info("PESSOAS JURIDICAS DA LISTA");
-		for (PessoaJuridica pessoaJuridica : pessoasJuridicas) {
-			LOG.info("NOME => " + pessoaJuridica.getNome());
-			LOG.info("RAZÃO SOCIAL => " + pessoaJuridica.getRazaoSocial());
-			LOG.info("CNPJ = > " + pessoaJuridica.getCnpj());
-		}
 	}
 	
 	public PessoaJuridica getNovaPessoaJuridica() {

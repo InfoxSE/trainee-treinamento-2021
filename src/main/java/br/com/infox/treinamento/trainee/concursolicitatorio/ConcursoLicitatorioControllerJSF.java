@@ -15,8 +15,6 @@ import javax.faces.bean.ViewScoped;
 public class ConcursoLicitatorioControllerJSF implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-
-	private static final Logger LOG = Logger.getLogger("trainee.concursocontroller");
 	
 	private ConcursoLicitatorio novoConcurso;
 	
@@ -24,13 +22,12 @@ public class ConcursoLicitatorioControllerJSF implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		LOG.info("PostConstruct ConcursoLicitatorioControllerJSF");
 		this.novoConcurso = new ConcursoLicitatorio();
 	}
 	
 	@PreDestroy
 	public void destroy() {
-		LOG.info("PreDestroy ConcursoLicitatorioControllerJSF");
+		
 	}
 	
 	public void registrar() {
@@ -39,14 +36,6 @@ public class ConcursoLicitatorioControllerJSF implements Serializable {
 		}
 		getConcursos().add(getNovoConcurso());
 		this.novoConcurso = new ConcursoLicitatorio();
-		LOG.info("CONCURSOS DA LISTA");
-		for (ConcursoLicitatorio concurso : concursos) {
-			LOG.info("NOME => " + concurso.getNome());
-			LOG.info("DESCRIÇÃO => " + concurso.getDescricao());
-			LOG.info("QUANTIDADE => " + concurso.getQuantidade());
-			LOG.info("DATA DE DISPONIBILIZAÇÃO => " + concurso.getDataDisponibilizacao());
-			LOG.info("DATA LIMITE => " + concurso.getDataLimite());
-		}
 	}
 	
 	public ConcursoLicitatorio getNovoConcurso() {
