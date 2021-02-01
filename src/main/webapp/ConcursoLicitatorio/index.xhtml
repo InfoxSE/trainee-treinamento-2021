@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:o="http://omnifaces.org/ui"
+    xmlns:ifx="http://infox.com.br/trainee"
+    template="/WEB-INF/templates/default.xhtml">
+    
+    <ui:define name="content">
+       	<h1>Registro de Concurso Licitatório</h1>
+    	
+    	<div>
+            <p>Insira as informações abaixo.</p>
+        </div>
+    
+		<h:form id="registrarConcursoLicitatorio">
+			<h:panelGrid columns="2" columnClasses="titleCell">
+			
+				<ifx:inputText id="name" label="Nome: "
+					value="#{concursoLicitatorioControllerJSF.novoConcurso.nome}" />
+				
+				<ifx:inputText id="descricao" label="Descrição: "
+					value="#{concursoLicitatorioControllerJSF.novoConcurso.descricao}" />
+				
+				<ifx:inputText id="quantidade" label="Quantidade: "
+					converter="javax.faces.Integer"
+					value="#{concursoLicitatorioControllerJSF.novoConcurso.quantidade}" />
+
+				<ifx:inputDate id="dataDisponibilizacao" label="Data de Disponibilização:" 
+       				value="#{concursoLicitatorioControllerJSF.novoConcurso.dataDisponibilizacao}" />
+			
+          		<ifx:inputDate id="dataLimite" label="Data Limite:"
+					value="#{concursoLicitatorioControllerJSF.novoConcurso.dataLimite}" />
+					
+				<o:validateOrder components="dataDisponibilizacao dataLimite" />
+			
+				<div>
+					<h:commandButton id="registrar" value="Registrar" action="#{concursoLicitatorioControllerJSF.registrar}"/>
+				</div>
+				
+			</h:panelGrid>
+		</h:form>
+       
+       <h2>Concursos Licitatórios</h2>
+       <h:dataTable var="concurso" styleClass="simpletablestyle" value="#{concursoLicitatorioControllerJSF.concursos}">
+       		<h:column>
+       			<f:facet name="header">NOME</f:facet>
+       			<h:outputText value="#{concurso.nome}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">DESCRIÇÃO</f:facet>
+       			<h:outputText value="#{concurso.descricao}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">QUANTIDADE</f:facet>
+       			<h:outputText value="#{concurso.quantidade}"/>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">DATA DE DISPONIBILIZAÇÃO</f:facet>
+       			<h:outputText value="#{concurso.dataDisponibilizacao}">
+       				<f:convertDateTime pattern="dd/MM/yyyy"/>
+       			</h:outputText>
+       		</h:column>
+       		<h:column>
+       			<f:facet name="header">DATA LIMITE</f:facet>
+       			<h:outputText value="#{concurso.dataLimite}">
+       				<f:convertDateTime pattern="dd/MM/yyyy"/>
+       			</h:outputText>
+       		</h:column>
+       </h:dataTable>
+		
+    </ui:define>
+</ui:composition>
